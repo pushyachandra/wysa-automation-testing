@@ -7,9 +7,9 @@ def parse_csv(file_path):
         reader = csv.reader(file)
         
         for row in reader:
-            if len(row) == 2:
-                key = row[0]
-                values = row[1].split(',')
+            if len(row) == 3:
+                key = row[1]
+                values = row[2].split(',')
                 data_dict[key] = values
 
     return data_dict

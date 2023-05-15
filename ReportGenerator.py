@@ -45,39 +45,40 @@ def generate_pie_chart(pdf,pass_count,fail_count):
     
 
 def generate_report(pass_count, fail_count, report_file):
-    total_test_cases = pass_count + fail_count
+    try:
+        total_test_cases = pass_count + fail_count
 
-    pdf = canvas.Canvas(report_file, pagesize=letter)
+        pdf = canvas.Canvas(report_file, pagesize=letter)
 
-    data = [
-        ['Number of Test Cases', 'Passed Cases Count', 'Failed Cases Count', 'Pass Rate', 'Fail Rate'],
-        [total_test_cases, pass_count, fail_count, f'{pass_count/total_test_cases:.2%}', f'{fail_count/total_test_cases:.2%}']
-    ]
+        data = [
+            ['Number of Test Cases', 'Passed Cases Count', 'Failed Cases Count', 'Pass Rate', 'Fail Rate'],
+            [total_test_cases, pass_count, fail_count, f'{pass_count/total_test_cases:.2%}', f'{fail_count/total_test_cases:.2%}']
+        ]
 
-    table_style = TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 12),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black),
-    ])
+        table_style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 12),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ])
 
-    table = Table(data)
-    table.setStyle(table_style)
+        table = Table(data)
+        table.setStyle(table_style)
 
-    table.wrapOn(pdf, 50, 700)
-    table.drawOn(pdf, 50, 700)
+        table.wrapOn(pdf, 50, 700)
+        table.drawOn(pdf, 50, 700)
 
-    title_text = "Automation Test Report"
-    pdf.setFont('Helvetica-Bold', 16)
-    pdf.drawCentredString(300, 750, title_text)
-    
-    pdf=generate_pie_chart(pdf,pass_count,fail_count)
+        title_text = "Automation Test Report"
+        pdf.setFont('Helvetica-Bold', 16)
+        pdf.drawCentredString(300, 750, title_text)
+        
+        pdf=generate_pie_chart(pdf,pass_count,fail_count)
 
-    pdf.save()
-
-
-# generate_report(10,5,"stats/report.pdf")
+        pdf.save()
+    except Exception as error:
+        print("Oops from Report Generation")
+        print("The Error is",error)

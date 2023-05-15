@@ -4,6 +4,7 @@ from Automation import runner
 from Automation import script_exec
 from Automation import terminator
 from ReportGenerator import generate_report
+from OutputGenerator import generate_output_csv
 
 print("Executing Initializer")
 driver=initializer()
@@ -18,6 +19,7 @@ data_dict = ParseMaster.parse_csv('inputs/testing.csv')
 k=1
 pass_count = 0
 fail_count = 0
+test_results=[]
 
 for input_value in data_dict.keys():
     print("==================================================")
@@ -39,21 +41,26 @@ for input_value in data_dict.keys():
         if(expected_output[i] in txt):
             flag=False
         i+=1
-    print("Input        :",input_value)
-    print("Actual       :",actual_output)
-    print("Expected     :",expected_output)
+    # print("Input        :",input_value)
+    # print("Actual       :",actual_output)
+    # print("Expected     :",expected_output)
     if(flag==False):
         print("Passed")
         pass_count+=1
     else:
         print("Failed")
         fail_count+=1
+    
+    test_results.append([k,'Pass' if flag == False else 'Fail'])
         
     print("==================================================")
     
     k+=1
 
 report_file = "stats/report.pdf"
+test_result_file="stats/testresult.csv"
 generate_report(pass_count, fail_count, report_file)
+generate_output_csv(test_result_file, test_results)
+
 
 terminator(driver)
