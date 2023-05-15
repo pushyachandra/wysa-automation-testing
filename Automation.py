@@ -9,8 +9,7 @@ from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
 import time
 
-def run_automation(input_value):
-    # set up appium
+def initializer():
     caps = {}
     caps["platformName"] = "Android"
     caps["appium:platformVersion"] = "13"
@@ -24,10 +23,11 @@ def run_automation(input_value):
     caps["appium:connectHardwareKeyboard"] = True
 
     driver = webdriver.Remote("http://127.0.0.1:4723/wd/hub", caps)
+    
+    return driver
 
-    # set up explicit wait
+def runner(driver):
     wait = WebDriverWait(driver, 20)
-
     # find elements and perform actions
     try:
         # wait for element to be clickable
@@ -57,8 +57,13 @@ def run_automation(input_value):
         # wait for element to be clickable
         el7 = wait.until(EC.element_to_be_clickable((MobileBy.ACCESSIBILITY_ID, "Close")))
         el7.click()
+    except Exception as error:
+        print("Opps from Runner")
+        print("The Error is",error)
 
-        # wait for element to be clickable
+def script_exec(driver,input_value):
+    wait = WebDriverWait(driver, 20)
+    try:
         el8 = wait.until(EC.element_to_be_clickable((MobileBy.XPATH, "//android.widget.LinearLayout[@content-desc=\"Talk\"]/android.widget.ImageView")))
         el8.click()
 
@@ -85,7 +90,7 @@ def run_automation(input_value):
         el11 = wait.until(EC.element_to_be_clickable((MobileBy.ACCESSIBILITY_ID, "Send")))
         el11.click()
         
-        time.sleep(15)
+        time.sleep(10)
 
         elements = driver.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, 
                                         value='new UiSelector().resourceId("bot.touchkin:id/message")')
@@ -98,8 +103,13 @@ def run_automation(input_value):
             elif(flag==False):
                 output.append(element.get_attribute('text'))
         
-    finally:
-        # close the app session
-        driver.quit()
+        el18 = wait.until(EC.element_to_be_clickable((MobileBy.ACCESSIBILITY_ID, "Back")))
+        el18.click()
+    except Exception as error:
+        print("Oops from run_automation")
+        print("The Error is",error)
 
     return output
+
+def terminator(driver):
+    driver.quit()
