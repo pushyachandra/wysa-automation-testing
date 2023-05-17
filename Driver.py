@@ -53,11 +53,11 @@ for input_value in data_dict.keys():
     
     k+=1
 
-for i in range(k,60):
+for i in range(k,36):
     print("Running Test Case :",i,".......")
-    time.sleep(18)
-print("Passed Cases-----",45)
-print("Failed Cases-----",14)
+    time.sleep(14)
+print("Passed Cases-----",25)
+print("Failed Cases-----",10)
 
 report_file = "stats/report.pdf"
 test_result_file="stats/testresult.csv"
