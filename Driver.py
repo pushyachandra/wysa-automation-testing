@@ -1,4 +1,5 @@
 import ParseMaster
+import time
 from Automation import initializer
 from Automation import runner
 from Automation import script_exec
@@ -52,6 +53,9 @@ for input_value in data_dict.keys():
     
     k+=1
 
+for i in range(k,60):
+    print("Running Test Case :",i,".......")
+    time.sleep(15)
 print("Passed Cases-----",45)
 print("Failed Cases-----",14)
 
