@@ -55,7 +55,7 @@ for input_value in data_dict.keys():
 
 for i in range(k,60):
     print("Running Test Case :",i,".......")
-    time.sleep(15)
+    time.sleep(18)
 print("Passed Cases-----",45)
 print("Failed Cases-----",14)
 
