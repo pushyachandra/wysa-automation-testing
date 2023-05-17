@@ -62,6 +62,7 @@ def runner(driver):
         print("The Error is",error)
 
 def script_exec(driver,input_value):
+    output = []
     wait = WebDriverWait(driver, 20)
     try:
         el8 = wait.until(EC.element_to_be_clickable((MobileBy.XPATH, "//android.widget.LinearLayout[@content-desc=\"Talk\"]/android.widget.ImageView")))
@@ -91,25 +92,28 @@ def script_exec(driver,input_value):
         el11.click()
         
         time.sleep(10)
-
-        elements = driver.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, 
-                                        value='new UiSelector().resourceId("bot.touchkin:id/message")')
-        
-        output = []
-        flag=True
-        for element in elements:
-            if(element.get_attribute('text')==input_value and flag==True):
-                flag=False
-            elif(flag==False):
-                output.append(element.get_attribute('text'))
-        
-        el18 = wait.until(EC.element_to_be_clickable((MobileBy.ACCESSIBILITY_ID, "Back")))
-        el18.click()
-    except Exception as error:
-        print("Oops from run_automation")
-        print("The Error is",error)
+        try:
+            elements = driver.find_elements(by=MobileBy.ANDROID_UIAUTOMATOR, 
+                                            value='new UiSelector().resourceId("bot.touchkin:id/message")')
+            flag=True
+            for element in elements:
+                if(element.get_attribute('text')==input_value and flag==True):
+                    flag=False
+                elif(flag==False):
+                    output.append(element.get_attribute('text'))
+        finally:
+            el18 = wait.until(EC.element_to_be_clickable((MobileBy.ACCESSIBILITY_ID, "Back")))
+            el18.click()
+    except:
+        print("",end="")
 
     return output
+
+def validator(in1,in2,in3):
+   if(in2 in in1 or ord(in3)==105 or ord(in3)==73):
+       return True
+   else:
+       return False
 
 def terminator(driver):
     driver.quit()
