@@ -25,7 +25,6 @@ fail_count = 0
 test_results=[]
 
 for input_value in data_dict.keys():
-    # print("==================================================")
     print("Running Test Case :",k,".......")
     actual_output = script_exec(driver,input_value)
     expected_output = data_dict[input_value]
@@ -40,24 +39,19 @@ for input_value in data_dict.keys():
     
     flag=True
     i=0
-    # while(flag==True and i<len(expected_output)):
     if(validator(expected_output,txt,input_value[0])):
         flag=False
     else:
         flag=True
-        # i+=1
     if(flag==False):
         pass_count+=1
     else:
         fail_count+=1
     
     test_results.append([k,'Pass' if flag == False else 'Fail'])
-        
-    # print("==================================================")
     
     k+=1
-    
-# print()
+
 print("Passed Cases-----",45)
 print("Failed Cases-----",14)
 
