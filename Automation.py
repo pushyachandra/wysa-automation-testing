@@ -116,4 +116,5 @@ def validator(in1,in2,in3):
        return False
 
 def terminator(driver):
+    print("Terminating the driver and Quitting")
     driver.quit()

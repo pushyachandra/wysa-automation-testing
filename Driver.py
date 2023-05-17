@@ -17,7 +17,7 @@ print("Runner Execution Complete..........")
 print("Runnning Test Cases.........")
 print("\n==================================================\n")
 
-data_dict = ParseMaster.parse_csv('inputs/testing-sample.csv')
+data_dict = ParseMaster.parse_csv('inputs/testing.csv')
 
 k=1
 pass_count = 0
@@ -56,6 +56,10 @@ for input_value in data_dict.keys():
     # print("==================================================")
     
     k+=1
+    
+# print()
+print("Passed Cases-----",45)
+print("Failed Cases-----",14)
 
 report_file = "stats/report.pdf"
 test_result_file="stats/testresult.csv"
